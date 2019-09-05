@@ -49,11 +49,11 @@ Open your app and take a look around. The crypto currency data is being fetched 
 This is going to be a pretty cool hook. It will be used pretty much the same way as `useState`, but with a key and value passed into it - ie `const [name, setName] = useLocalStorage('name', 'Dustin')`. You can use `setName` to update the value of `name` on localStorage! Pretty cool, huh? Let's get to it!
 
 - [x] Create a new directory called `hooks`, and a new file in it called `useLocalStorage`.
-- Build a function called `useLocalStorage`. Now, to set something to localStorage, we need a key (must be a string) and a value (can be anything). To retrieve something from localStorage, we need the key. To update something in localStorage, you use the same method as adding something new, and it will just replace the old key/value pair in localStorage. Knowing this, let's add `key` and `initialValue` as parameters to the hook.
-- We're going to set up some state here. Set up a state property called storedValue.
-  - This state property is going to take a function as it's initial value. When we do this, whatever that callback function returns is what gets set as the intialValue for the state property.
-  - In the callback function, we'll check to see if the item we passed in already exists in localStorage, and return that value, otherwise we'll return whatever initialValue was passed in.
-  - Quick note, if you pass in arrays or objects to localStorage, you will need to parse it into JSON. Then when you retrieve it, like we do below, you'll need to parse it back into regular JavaScript
+- [x] Build a function called `useLocalStorage`. Now, to set something to localStorage, we need a key (must be a string) and a value (can be anything). To retrieve something from localStorage, we need the key. To update something in localStorage, you use the same method as adding something new, and it will just replace the old key/value pair in localStorage. Knowing this, let's add `key` and `initialValue` as parameters to the hook.
+- [x] We're going to set up some state here. Set up a state property called storedValue.
+  - [x] This state property is going to take a function as its initial value. When we do this, whatever that callback function returns is what gets set as the intialValue for the state property. _This callback function is what grabs items from local storage and returns it if it's there. If not, it reverts to its initial value. (User input time???)_
+  - [x] In the callback function, we'll check to see if the item we passed in already exists in localStorage, and return that value, otherwise we'll return whatever initialValue was passed in.
+  - [x] Quick note, if you pass in arrays or objects to localStorage, you will need to parse it into JSON. Then when you retrieve it, like we do below, you'll need to parse it back into regular JavaScript
 
 ```js
 // To retrieve an item from localStorage, call localStorage.getItem('itemName')
@@ -82,11 +82,11 @@ export const useLocalStorage = (key, initialValue) => {
 ```
 
 - Remember we're trying to use this hook like this: `const [name, setName] = useLocalStorage('name', 'Dustin')`. So far we have made the value part of the hook, but not the setter. Let's go ahead and create a setter function, and return that in the array as well.
-  - inside the hook, write a function called `setValue` that takes a `value` parameter
-  - In `setValue`, set the `value` to localStorage using the `key` that was passed into the hook itself
-  - Also, update the state of `storedValue` with `value` as well
-  - Add `setValue` to the array that is being returned out of this hook
-  - `setValue` should look something like this:
+  - [x] inside the hook, write a function called `setValue` that takes a `value` parameter
+  - [x] In `setValue`, set the `value` to localStorage using the `key` that was passed into the hook itself
+  - [x] Also, update the state of `storedValue` with `value` as well
+  - [x] Add `setValue` to the array that is being returned out of this hook
+  - [x] `setValue` should look something like this:
 
 ```js
 const setValue = value => {
@@ -102,9 +102,9 @@ We're going to use this inside our dark mode hook, but this can be used anywhere
 ## STEP 2 - useDarkMode
 
 - [x] Inside the `hooks` directory, add a new file called `useDarkMode`.
-- Build a function called `useDarkMode`.
-- Import `useLocalStorage`
-- Call `useLocalStorage` and pass in the key you want to use to store whether or not dark mode is enabled. Remember, this hook returns an array with a value and a setter in an array, exactly like the state hook, so make sure to capture those values in a `const` - `const [someValue, setSomeValue] = useLocalStorage('your key here')`
+- [x] Build a function called `useDarkMode`.
+- [x] Import `useLocalStorage`
+- [x] Call `useLocalStorage` and pass in the key you want to use to store whether or not dark mode is enabled. Remember, this hook returns an array with a value and a setter in an array, exactly like the state hook, so make sure to capture those values in a `const` - `const [someValue, setSomeValue] = useLocalStorage('your key here')`
 - Now to add the class to the body. If we need to manipulate the DOM directly, how do we do that? Any direct DOM manipulation is considered a side effect, right? So let's use the effect hook.
   -Import and set up your effect hook.
   - Inside it, check to see if the value from `useLocalStorage` is true or false.
